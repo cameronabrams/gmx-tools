@@ -69,9 +69,10 @@ def parse_xvg(fname, sel_columns='all'):
                 else:
                     print('Unsupported entry: {0} - ignoring'.format(tokens[0]), file=sys.stderr)
             elif line[0].isdigit():
-                num_data.append(map(float, line.split()))
-    
-    num_data = zip(*num_data)
+                num_data.append(list(map(float, line.split())))
+    #print(num_data)
+    num_data = list(zip(*num_data))
+    #print(num_data)
 
     if not metadata['labels']['series']:
         for series in range(len(num_data) - 1):
@@ -137,7 +138,7 @@ def plot_data(data, metadata, window=1, interactive=True, outfile=None,
     ax.set_ylabel(metadata['labels'].get('yaxis', ''))
     ax.set_title(metadata.get('title', ''))
     
-    ax.set_axis_bgcolor(bg_color)
+    #ax.set_axis_bgcolor(bg_color)
     ax.grid('on')
     
     try:
